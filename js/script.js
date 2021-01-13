@@ -33,7 +33,7 @@ class UI{
     }
     //define the function field clear
     clearFormFields(){
-        
+
         // value equal to empty
         document.querySelector("#title").value= '';
         document.querySelector("#author").value= '';
@@ -53,7 +53,12 @@ function newBook(e){
      author= document.querySelector("#author").value,
      isbn= document.querySelector("#isbn").value;
 
-    // create Book Class's Object
+    //check form is empty or not
+     if(title === '' || author === '' || isbn === ''){
+         alert("All Fields!")
+        }
+        else{
+             // create Book Class's Object
     let book= new Book(title,author,isbn);
 
     //create UI class's Object
@@ -62,6 +67,10 @@ function newBook(e){
 
     //after filling form field ll be clear by calling this function
     ui.clearFormFields();
+            
+        }
+
+   
 
     
     
