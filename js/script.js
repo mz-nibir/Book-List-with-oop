@@ -16,10 +16,8 @@ class Book {
 
 // UI Class
 class UI {
-    constructor() {
-
-    }
-    addToBookList(book) {
+   
+    static addToBookList(book) {
         let list = document.querySelector("#book-list");
         let row = document.createElement('tr');
 
@@ -33,7 +31,7 @@ class UI {
 
     }
     //define the function field clear
-    clearFormFields() {
+    static clearFormFields() {
 
         // value equal to empty
         document.querySelector("#title").value = '';
@@ -41,7 +39,7 @@ class UI {
         document.querySelector("#isbn").value = '';
 
     }
-    showAlert(massage, className) {
+    static showAlert(massage, className) {
         let div = document.createElement('div');
         div.className = `alert ${className}`;  //className = "alert error" -> this is built in class of scleton
 
@@ -59,10 +57,12 @@ class UI {
         }, 3000);
     }
 
-    deleteFromBook(target) {
+    static deleteFromBook(target) {
 
         if (target.hasAttribute('href')) {
             target.parentElement.parentElement.remove();
+            
+            UI.showAlert("Book Remove!", "success");
            
         }
 
@@ -82,12 +82,12 @@ function newBook(e) {
         isbn = document.querySelector("#isbn").value;
 
     //create UI class's Object
-    let ui = new UI();
+ 
 
     //check form is empty or not
     if (title === '' || author === '' || isbn === '') {
 
-        ui.showAlert("Please Fill all the fields", "error");
+        UI.showAlert("Please Fill all the fields", "error");
 
     }
     else {
@@ -95,12 +95,12 @@ function newBook(e) {
         let book = new Book(title, author, isbn);
 
 
-        ui.addToBookList(book);
+        UI.addToBookList(book);
 
         //after filling form field ll be clear by calling this function
-        ui.clearFormFields();
+        UI.clearFormFields();
 
-        ui.showAlert("Book Added!", "success");
+        UI.showAlert("Book Added!", "success");
 
     }
 
@@ -111,12 +111,11 @@ function newBook(e) {
 //define removeBook function
 function removeBook(e) {
 
-    let ui = new UI();
-    ui.deleteFromBook(e.target);
+    
+    UI.deleteFromBook(e.target);
 
-
-    ui.showAlert("Book Remove!", "success");
-
-
-    e.preventDefault();
+   
+       
+    
+   e.preventDefault();
 }
