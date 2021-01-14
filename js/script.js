@@ -62,6 +62,9 @@ class UI {
         if (target.hasAttribute('href')) {
             target.parentElement.parentElement.remove();
 
+           Store.removeBook(target.parentElement.previousElementSibling.textContent.trim());     //removeBook fn calling for remove LS ,, target-> <a> </a>,   target.parentElement -> <td>..</td>,  target.parentElement.previousElementSibling -> <td>ISBN number ashbe </td>,  target.parentElement.previousElementSibling.textContent -> only ISBN ta asbe
+                                
+
             UI.showAlert("Book Remove!", "success");
            
         }
@@ -102,7 +105,23 @@ class Store {
             
             UI.addToBookList(book); // built is fn ja LS te thaka book Main page e niye asbe
 
-        })
+        });
+
+    }
+
+    //Remove form LS
+    static removeBook(isbn){
+
+        let books = Store.getbooks(); //LS theke sob book niye ashbe ta book er moddhe rakhbe.
+        books.forEach((book,index) => {
+
+            if(book.isbn === isbn){
+                books.splice(index,1);  //remove hobe
+            }
+        
+        });
+        localStorage.setItem('books',JSON.stringify(books)); //LS update hobe(remove)
+
 
     }
 
