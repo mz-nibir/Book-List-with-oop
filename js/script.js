@@ -88,6 +88,8 @@ function newBook(e){
 
     //after filling form field ll be clear by calling this function
     ui.clearFormFields();
+
+    ui.showAlert("Book Added!","success"); 
             
         }
 
