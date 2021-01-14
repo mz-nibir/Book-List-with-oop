@@ -50,6 +50,12 @@ class UI{
         let form = document.querySelector("#book-form");
 
         container.insertBefore(div,form); // container er moddhe div k insert korbo but form er age.
+
+        // after 3second the alert msg will be hide
+        setTimeout(() => {
+            document.querySelector('.alert').remove(); // we call call either .alert or .error class  bcz 2 class are same
+            
+        }, 3000);
     }
 }
 
