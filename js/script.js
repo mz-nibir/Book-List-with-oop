@@ -40,6 +40,17 @@ class UI{
         document.querySelector("#isbn").value= '';
 
     }
+    showAlert(massage,className){
+        let div = document.createElement('div');
+        div.className= `alert ${className}`;  //className = "alert error" -> this is built in class of scleton
+
+        div.appendChild(document.createTextNode(massage)); // <div className="alert error"> Please Fill all the fields </div> 
+        
+        let container= document.querySelector(".container");
+        let form = document.querySelector("#book-form");
+
+        container.insertBefore(div,form); // container er moddhe div k insert korbo but form er age.
+    }
 }
 
 //add event Listener
@@ -53,28 +64,26 @@ function newBook(e){
      author= document.querySelector("#author").value,
      isbn= document.querySelector("#isbn").value;
 
+      //create UI class's Object
+     let ui= new UI();
+
     //check form is empty or not
      if(title === '' || author === '' || isbn === ''){
-         alert("All Fields!")
+
+        ui.showAlert("Please Fill all the fields","error");
+    
         }
         else{
              // create Book Class's Object
     let book= new Book(title,author,isbn);
 
-    //create UI class's Object
-    let ui= new UI();
+    
     ui.addToBookList(book);
 
     //after filling form field ll be clear by calling this function
     ui.clearFormFields();
             
         }
-
-   
-
-    
-    
- 
 
     //remove loaded prevent
     e.preventDefault();
