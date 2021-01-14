@@ -61,7 +61,7 @@ class UI {
 
         if (target.hasAttribute('href')) {
             target.parentElement.parentElement.remove();
-            
+
             UI.showAlert("Book Remove!", "success");
            
         }
@@ -69,9 +69,49 @@ class UI {
     }
 }
 
+
+//Local Storage Class
+class Store {
+    static getbooks(){   
+        let books;
+        if(localStorage.getItem('books') === null){  //kono boi LS e ase ki na.
+
+            books= []; // if na thake then blank array ashbe
+
+        }
+        else{
+            books = JSON.parse(localStorage.getItem('books')); // jodi thake tahole sei book ta json parse kore niye ashbe
+        }
+        return books;
+    }
+
+    static addBook(book){
+        let books = Store.getbooks(); //self class er functn k call korbe je kono boi ase ki na
+
+        books.push(book); // new book k push korbo
+
+        localStorage.setItem('books',JSON.stringify(books)); // send to LS finally
+    }
+
+    //LS e save kora book anar jonno, page reload korar por
+    static displayBook(){  //ei fn ta page jokhon load hobe tokhon call hobe DOM theke (listener er moodhe)
+
+        let books = Store.getbooks(); //jodi kono boi LS e thake ta books er vetor ashbe.
+
+        books.forEach(book =>{
+            
+            UI.addToBookList(book); // built is fn ja LS te thaka book Main page e niye asbe
+
+        })
+
+    }
+
+}
+
 //add event Listener
 form.addEventListener('submit', newBook);
 booklist.addEventListener('click', removeBook);
+document.addEventListener('DOMContentLoaded',Store.displayBook());
 
 
 //Define Function
@@ -101,6 +141,8 @@ function newBook(e) {
         UI.clearFormFields();
 
         UI.showAlert("Book Added!", "success");
+
+        Store.addBook(book); // send to LS ( calling Fn)
 
     }
 
